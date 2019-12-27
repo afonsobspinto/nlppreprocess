@@ -21,8 +21,10 @@ import re
 from nltk.stem import WordNetLemmatizer
 from nltk.stem.snowball import SnowballStemmer
 
+
 class NLP():
     escape_char = chr(8217)
+
     def __init__(self, remove_stopwords=True, replace_words=True,
                  remove_numbers=True, remove_html_tags=True,
                  remove_punctuations=True, lemmatize=False,
@@ -62,7 +64,6 @@ class NLP():
             self.lemmatizer = WordNetLemmatizer()
         if self.lemmatize_method == 'snowball':
             self.lemmatizer = SnowballStemmer('english')
-
 
     def remove_stopwords_fun(self):
         """
@@ -202,7 +203,7 @@ class NLP():
             if arg in self.stopword_list:
                 self.stopword_list.remove(arg)
             else:
-                raise Exception(arg+" not in list")
+                raise Exception(arg + " not in list")
 
     def print_stopwords(self):
         """
@@ -252,5 +253,4 @@ class NLP():
             self.remove_punctations_fun()
         if self.lemmatize is True:
             self.lemmatize_fun()
-        return " ".join(self.doc.split())
-
+        return ' '.join([w for w in self.doc.split() if len(w) > 1])
