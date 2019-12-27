@@ -99,7 +99,7 @@ class NLP():
         self.doc = re.sub("[0-9]", "", self.doc)
 
     def remove_mentions_fun(self):
-        r = r'@[A-Za-z0-9]+'
+        r = r'@[A-Za-z0-9_]+'
         self.doc = re.sub(r, '', self.doc)
 
     def remove_links_fun(self):
