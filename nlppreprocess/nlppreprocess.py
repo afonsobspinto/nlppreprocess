@@ -26,6 +26,7 @@ class NLP():
     def __init__(self, remove_stopwords=True, replace_words=True,
                  remove_numbers=True, remove_html_tags=True,
                  remove_punctuations=True, lemmatize=False,
+                 remove_links=True, remove_mentions=True,
                  lemmatize_method='wordnet'):
         """
         This package contains functions that can help during the
@@ -51,6 +52,8 @@ class NLP():
         self.remove_numbers = remove_numbers
         self.remove_html_tags = remove_html_tags
         self.remove_punctations = remove_punctuations
+        self.remove_links = remove_links
+        self.remove_mentions = remove_mentions
         self.lemmatize_method = lemmatize_method
         self.lemmatize = lemmatize
         self.stopword_list = set(stopwords)
@@ -94,6 +97,14 @@ class NLP():
         all the numbers from the doc.
         """
         self.doc = re.sub("[0-9]", "", self.doc)
+
+    def remove_mentions_fun(self):
+        r = r'@[A-Za-z0-9]+'
+        self.doc = re.sub(r, '', self.doc)
+
+    def remove_links_fun(self):
+        r = r'https?://[A-Za-z0-9./]+'
+        self.doc = re.sub(r, '', self.doc)
 
     def remove_html_tags_fun(self):
         """
@@ -227,6 +238,10 @@ class NLP():
         self.doc = doc
         if self.replace_words is True:
             self.replace_words_fun()
+        if self.remove_links is True:
+            self.remove_links_fun()
+        if self.remove_mentions is True:
+            self.remove_mentions_fun()
         if self.remove_html_tags is True:
             self.remove_html_tags_fun()
         if self.remove_stopwords is True:
