@@ -252,5 +252,5 @@ class NLP():
             self.remove_punctations_fun()
         if self.lemmatize is True:
             self.lemmatize_fun()
-        return self.doc
+        return " ".join(self.doc.split())
 
